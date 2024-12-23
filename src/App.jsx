@@ -9,7 +9,7 @@ export default function App(){
     }
     return dicevalue;
   }
-  const [dicevalues, setdicevalues] = React.useState(generateAllValueDice);
+  const [dicevalues, setdicevalues] = React.useState(generateAllValueDice); // set the array value to equal a state and then map it and send in random value as prop
   const displaydice = dicevalues.map((die)=>{
     return <Die number={die}/>
   })
