@@ -14,12 +14,18 @@ export default function App(){
     return <Die number={die}/>
   })
 
+  function newdice(){
+    setdicevalues(generateAllValueDice)
+  }
+
   return (
     <>
       <main>
         <div className = "dice-container">
           {displaydice}
+          
         </div>
+        <button onClick = {newdice} className = "roll">Roll</button>
       </main>
     </>
   )
