@@ -15,9 +15,11 @@ export default function App(){
     return <Die key = {die.id} id ={die.id} value={die.value} isHeld={die.isHeld} hold={hold}/>
   })
 
-  function newdice(){ // set the array to have new value and then update state
-    setdicevalues(generateAllValueDice)
-  }
+  function newdice(){ // set the object to only get new value when isHeld is false 
+    setdicevalues(prevdice=>prevdice.map(item=>{
+      return item.isHeld === false ? {...item,value: Math.floor(Math.random() * 6) + 1} : item
+    })) 
+  } 
   function hold(id){
     setdicevalues(prevdice=>prevdice.map(item=>{
       return item.id === id ? {...item,isHeld:!item.isHeld} : item 
