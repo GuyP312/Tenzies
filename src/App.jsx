@@ -5,6 +5,7 @@ export default function App(){
   return (
     <>
       <main>
+        <div className = "dice-container">
         <Die number={1} />
         <Die number={2} />
         <Die number={3} />
@@ -15,6 +16,7 @@ export default function App(){
         <Die number={8} />
         <Die number={9} />
         <Die number={10} />
+        </div>
       </main>
     </>
   )
