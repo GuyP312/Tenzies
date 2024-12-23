@@ -12,11 +12,16 @@ export default function App(){
   }
   const [dicevalues, setdicevalues] = React.useState(generateAllValueDice); // set the array value to equal a state and then map it and send in random value as prop
   const displaydice = dicevalues.map((die)=>{
-    return <Die key = {die.id} value={die.value} isHeld={die.isHeld}/>
+    return <Die key = {die.id} id ={die.id} value={die.value} isHeld={die.isHeld} hold={hold}/>
   })
 
   function newdice(){ // set the array to have new value and then update state
     setdicevalues(generateAllValueDice)
+  }
+  function hold(id){
+    setdicevalues(prevdice=>prevdice.map(item=>{
+      return item.id === id ? {...item,isHeld:!item.isHeld} : item 
+    }))
   }
 
   return (
