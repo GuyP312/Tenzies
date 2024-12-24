@@ -11,7 +11,7 @@ export default function App(){
     }
     return dicevalue;
   }
-
+  const [score,setscore] = React.useState(0);
   const [dicevalues, setdicevalues] = React.useState(()=> generateAllValueDice()); // set the array value to equal a state and then map it and send in random value as prop
   const Newgamefocus = React.useRef(null);
   const displaydice = dicevalues.map((die)=>{
@@ -19,8 +19,15 @@ export default function App(){
   })
 
   function newdice(){ // set the object to only get new value when isHeld is false
+    if(dicevalues.every(dice=>!(dice.isHeld))){
+      setscore(prevscore=>0)
+    }
+    else{
+      setscore(prevscore=>prevscore+1)
+    }
     if(gameWon){
       setdicevalues(()=> generateAllValueDice())
+      setscore(prevscore=>0)
     }
     setdicevalues(prevdice=>prevdice.map(item=>{
       return item.isHeld === false ? {...item,value: Math.floor(Math.random() * 6) + 1} : item
@@ -44,11 +51,12 @@ export default function App(){
       <main>
         {gameWon && <Confetti />}
         <h1 className="title">Tenzies</h1>
-        <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
+        <p className="instructions">{gameWon ? `You roll ${score} times. Try again for even lower rolls!` : "Roll until all dice are the same. Click each die to freeze it at its current value between rolls."}</p>
         <div className = "dice-container">
           {displaydice}
         </div>
         <button ref = {Newgamefocus} onClick = {newdice} className = "roll">{gameWon ? "New Game" : "Roll"}</button>
+        <p className ="tracker">{gameWon ? null : `Number of Roll : ${score}`}</p>
       </main>
     </>
   )
