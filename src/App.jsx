@@ -11,7 +11,9 @@ export default function App(){
     }
     return dicevalue;
   }
+
   const [dicevalues, setdicevalues] = React.useState(()=> generateAllValueDice()); // set the array value to equal a state and then map it and send in random value as prop
+  const Newgamefocus = React.useRef(null);
   const displaydice = dicevalues.map((die)=>{
     return <Die key = {die.id} id ={die.id} value={die.value} isHeld={die.isHeld} hold={hold}/>
   })
@@ -31,7 +33,11 @@ export default function App(){
   }
 
   const gameWon =(dicevalues.every(dice=>dice.isHeld)) && (dicevalues.every(dice=>dice.value))  // check if every dice is held and the same value
-
+  React.useEffect(()=>{
+    if (gameWon){
+      Newgamefocus.current.focus()
+    }
+  },[gameWon])
 
   return (
     <>
@@ -42,7 +48,7 @@ export default function App(){
         <div className = "dice-container">
           {displaydice}
         </div>
-        <button onClick = {newdice} className = "roll">{gameWon ? "New Game" : "Roll"}</button>
+        <button ref = {Newgamefocus} onClick = {newdice} className = "roll">{gameWon ? "New Game" : "Roll"}</button>
       </main>
     </>
   )
