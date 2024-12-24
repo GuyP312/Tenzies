@@ -26,6 +26,9 @@ export default function App(){
     }))
   }
 
+  const gameWon =(dicevalues.every(dice=>dice.isHeld)) && (dicevalues.every(dice=>dice.value))  // check if every dice is held and the same value
+
+
   return (
     <>
       <main>
@@ -33,9 +36,8 @@ export default function App(){
         <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
         <div className = "dice-container">
           {displaydice}
-          
         </div>
-        <button onClick = {newdice} className = "roll">Roll</button>
+        <button onClick = {newdice} className = "roll">{gameWon ? "New Game" : "Roll"}</button>
       </main>
     </>
   )
