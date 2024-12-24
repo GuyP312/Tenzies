@@ -1,6 +1,7 @@
 import React from 'react';
 import Die from './Components/Die';
 import { nanoid } from "nanoid";
+import Confetti from "react-confetti";
 export default function App(){
   function generateAllValueDice(){ // return an array of object with value , id and isHeld
     const dicevalue = [];
@@ -32,6 +33,7 @@ export default function App(){
   return (
     <>
       <main>
+        {gameWon && <Confetti />}
         <h1 className="title">Tenzies</h1>
         <p className="instructions">Roll until all dice are the same. Click each die to freeze it at its current value between rolls.</p>
         <div className = "dice-container">
